@@ -7,9 +7,14 @@ public class CardMatchSystem : MonoBehaviour
 {
     private List<Card> selectedCards = new List<Card>();
 
+    public void ResetGame()
+    {
+        selectedCards.Clear();
+    }
+
     public void OnCardSelected(Card card)
     {
-        Debug.Log($"Card {card.GetCardId()} selected");
+        //Debug.Log($"Card {card.GetCardId()} selected");
         selectedCards.Add(card);
 
         if (selectedCards.Count >= 2)
@@ -27,11 +32,17 @@ public class CardMatchSystem : MonoBehaviour
         {
             a.SetMatched();
             b.SetMatched();
+
+            GameManager.Instance.OnMatch();
+            AudioManager.Instance.PlayMatch();
         }
         else
         {
             a.PlayCloseAnimation();
             b.PlayCloseAnimation();
+
+            GameManager.Instance.OnMismatch();
+            AudioManager.Instance.PlayMismatch();
         }
     }
 }
