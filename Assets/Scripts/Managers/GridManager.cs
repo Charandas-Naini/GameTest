@@ -39,6 +39,7 @@ public class GridManager : MonoBehaviour
     private void ResetGame()
     {
         ClearGrid();
+        StopDisableGridCoroutine();
     }
 
     public void GenerateGrid(int rows, int cols)
@@ -123,7 +124,13 @@ public class GridManager : MonoBehaviour
     {
         yield return WaitForEnd;
         EnableGrid(false);
+
+        if (Time.timeScale == 0f) yield break;
+
         yield return new WaitForSeconds(initialCardOpenedDelay);
+
+        if (Time.timeScale == 0f) yield break;
+
         for (int i = 0; i < cards.Count; i++)
         {
             cards[i].PlayCloseAnimation();
