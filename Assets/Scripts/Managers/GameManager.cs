@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         scoreSystem.OnMatch();
 
-        if (scoreSystem.GetMatches() * 2 == rows * cols)
+        if (scoreSystem.GetMatches() * 2 >= rows * cols)
         {
             gameStateManager.ChangeState(gameStateManager.GameOverState);
         }
@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
     {
         gameStateManager.ChangeState(gameStateManager.GameplayState);
         gridManager.GenerateGrid(rows, cols);
+        scoreSystem.ResetScore();
     }
 
     public void LoadGame()
@@ -86,6 +87,7 @@ public class GameManager : MonoBehaviour
         else
         {
             gridManager.GenerateGrid(rows, cols);
+            scoreSystem.ResetScore();
         }
     }
 
